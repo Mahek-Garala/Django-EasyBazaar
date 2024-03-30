@@ -1,0 +1,27 @@
+{% extends 'seller-base.html' %}
+{% block content %}
+
+        		<!--================Login Box Area =================-->
+		<section class="login_box_area section_gap">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-lg-12">
+						<div class="login_form_inner">
+							<h3>Update Product</h3>
+
+                            <form class="row login_form" action="{% url 'update_product' product.id %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <div class="col-md-12 form-group">
+                                    <button type="submit" value="submit" class="primary-btn">Save Changes</button>
+                               	</div>
+                            </form>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--================End Login Box Area =================-->
+        {% endblock %}

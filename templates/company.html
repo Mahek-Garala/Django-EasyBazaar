@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seller Authentication</title>
+<link rel="stylesheet" href="/static/company.css">
+</head>
+<body>
+<div class="container">
+    <h2>Seller Authentication</h2>
+    <form action="{% url 'seller_auth' %}" method="POST">
+        {% csrf_token %}
+        <label for="companyName">Company Name:</label>
+        <input type="text" id="companyName" name="companyName" required><br><br>
+        <label for="companyProof">Company Proof:</label>
+        <p style="margin:2px 0px 0px 0px; font-size:small;">( Upload file with your company name )</p>
+        <input type="file" id="companyProof" name="companyProof" required><br><br>
+        
+        <div class="check">
+        <label>
+            <input type="checkbox" id="termsCheckbox" name="termsCheckbox" required>
+        </label>
+        I agree to the &nbsp; <a href="#"> terms and conditions </a><br><br>
+        </div>
+       
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<script src="/static/company.js"></script>
+</body>
+</html>

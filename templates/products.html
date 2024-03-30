@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% block content %}
+
+	<!-- start product Area -->
+	<section class="section_gap" style="margin-top:50px">
+		<!-- single product slide -->
+		<div class="single-product-slider">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-6 text-center">
+						<div class="section-title">
+							<h1>{{category.name}}</h1>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					
+					
+					<!-- single product -->
+					{% for p in products %}
+					 <div class="col-lg-3 col-md-6">
+						<div class="single-product">
+							<a href="{% url 'show_single_product' p.id %}"><img class="img-fluid" src="{{p.image.url}}" alt=""> </a>
+							<div class="product-details">
+								<h6>{{p.name}}</h6>
+								<div class="price">
+									<h6>{{p.price}}</h6>
+								</div>
+								<div class="button-group-area">
+									{% if p.in_cart %}
+									<a href="{% url 'cart_view' p.id %}" class="genric-btn primary circle">View Cart</a>
+									{% else %}  
+									<a href="{% url 'cart' p.id %}" class="genric-btn primary circle">Add to cart</a>
+									
+									{% endif %}
+									
+									{% if p.in_wishlist %}
+									<a href="{% url 'wishlist_view' p.id %}" class="genric-btn primary circle"
+									  >View Wishlist</a
+									>
+									{% else %}
+									<a href="{% url 'wishlist' p.id %}" class="genric-btn primary circle"
+									  >Wishlist</a
+									>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div> 
+				
+				
+					{% endfor %}
+					
+				</div>
+			</div>
+		</div>
+		
+	</section>
+	<!-- end product Area -->
+
+
+
+{% endblock %}

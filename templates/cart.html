@@ -1,0 +1,91 @@
+{% extends 'base.html' %} {% block content %}
+
+    <!--================Cart Area =================-->
+    <section class="cart_area" style="margin:60px 0px">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                                {% for p in products %}
+                                <tr>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex" style="height:50px; width:50px;">
+                                            <img src="{{ p.product.image.url }}" alt="">
+                                        </div>
+                                        <div class="media-body" style="margin-left:50px">
+                                            <p>{{p.product.name}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>{{p.product.price}}</h5>
+                                </td>
+                                <td>
+                                    <div class="product_count">
+                                        <input type="text" name="qty" id="sst" maxlength="12" value="{{p.quantity}}" title="Quantity:" class="input-text qty">
+                                        <a href="{% url 'increase_quantity' p.product.id %}">
+                                            <button onclick="var result = document.getElementById('sst'); var sst = parseInt(result.value); if( !isNaN( sst )) { result.value = sst + 1;  updateQuantity('+', p.product.id); } return false;" class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+                                        </a>
+                                        <a href="{% url 'decrease_quantity' p.product.id %}">
+                                            <button onclick="var result = document.getElementById('sst'); var sst = parseInt(result.value); if( !isNaN( sst ) && sst > 1 ) { result.value = sst - 1; updateQuantity('-', p.product.id); } return false;" class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                                        </a>
+                                    </div>
+                                </td>
+                               
+                                <td>
+                                    <a class="primary-btn" href="{% url 'remove_from_cart' p.product.id %}">remove</a>
+                                </td>
+                            </tr>
+                                {% endfor %}
+                            
+                        
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <h5>Subtotal</h5>
+                                </td>
+                                <td>
+                                    <h5> &#8377;{{ total_price }}</h5>
+                                </td>
+                            </tr>
+                          
+                            <tr class="out_button_area">
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <div class="checkout_btn_inner d-flex align-items-center">
+                                        <a class="primary-btn" href="{% url 'buyProduct' %}">Place order</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Cart Area =================-->
+
+{% endblock %}

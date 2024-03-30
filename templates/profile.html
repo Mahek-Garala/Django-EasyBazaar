@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block content %}
+    	<!-- Start Banner Area -->
+	
+	<!-- End Banner Area -->
+    <br><br><br>
+	<!-- start product Area -->
+<style>
+	body {
+		background-color: #f9f9fa
+	}
+
+	.padding {
+		padding: 5rem !important
+		
+	}
+	
+	.user-card-full {
+		overflow: hidden;
+		display: flex;
+        justify-content: center;
+		
+
+	}
+	
+	.card {
+		border-radius: 5px;
+		-webkit-box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
+		box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
+		border: none;
+		margin-bottom: 30px;
+		
+	}
+	
+	
+	.user-card-full .user-profile {
+		border-radius: 10px 0 0 10px;
+
+	}
+	
+	.bg-c-lite-green {
+			background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
+		background: linear-gradient(to right, darkorange, white);
+	}
+	
+	.user-profile {
+		padding: 40px 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+	}
+	
+	.card-block {
+		padding: 1.25rem;
+		
+	}
+	
+</style>
+   
+<section>
+	
+	<div class="page-content page-container" id="page-content">
+		<div class="padding">
+			<div class="row container d-flex justify-content-center">
+	        <div class="col-xl-6 col-md-12">
+	        	<div class="card user-card-full">
+	        		<div class="row m-l-0 m-r-0">
+	        			<div class="col-sm-4 bg-c-lite-green user-profile">
+	        				<div class="card-block text-center text-white">
+	        					<div class="m-b-25">
+	        						<img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image">
+	        					</div>
+	        					<h6 class="f-w-600">User</h6>
+	        				    <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+	        				</div>
+	        			</div>
+	        			<div class="col-sm-8">
+	        				<div class="card-block">
+	        					<div class="container">
+	        						<h1>User Profile</h1>
+	        						<p><strong>Username:</strong> {{ user.name }}</p>
+	        						<p><strong>Email:</strong> {{ user.email }}</p>
+                                    <p><strong>Type:</strong> {{ type }}</p>
+                                    <div class="button-group-area mt-40">
+                                        {% if type == "Seller" %}
+                                        <a href="{% url 'seller-home' %}" class="genric-btn primary circle">Home</a>
+                                        {% elif type == "Customer" %}
+                                        <a href="{% url 'home' %}" class="genric-btn primary circle">Home</a>
+
+                                        {% endif %}
+                                        <a href="{% url 'logoutpage' %}" class="genric-btn primary circle">Logout</a>
+
+                                    <div>
+	        					</div>
+	        			    </div>
+	        			</div>
+	        		</div>
+	        	</div>
+	        </div>
+	    </div>
+	</div>
+											
+</section>
+
+	<!-- end product Area -->
+{% endblock %}

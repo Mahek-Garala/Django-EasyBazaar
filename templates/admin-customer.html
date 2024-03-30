@@ -1,0 +1,68 @@
+{% extends 'admin-base.html' %}
+{% block content %}
+
+
+	<!-- start product Area -->
+	<section class="section_gap" style="margin-top:50px;">
+		<!-- single product slide -->
+		<div class="single-product-slider">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-6 text-center">
+						<div class="section-title">
+							<h1>Customer</h1>
+						</div>
+					</div>
+				</div>
+				
+
+                    <!-- ***** Explore Area Starts ***** -->
+    
+    <!-- Your table goes here -->
+    
+    <!-- ***** Explore Area Starts ***** -->
+    
+    <!-- Your table goes here -->
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>User Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Remove Button</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sample row -->
+          {% for p in user %}
+          <tr>
+            <td>{{p.id}}</td>
+            <td>{{p.name}}</td>
+            <td>{{p.phone}}</td>
+            <td> {{p.email}}</td>
+            <td><div class="buttons">
+              <a
+                href="{% url 'remove_user' p.id %}"
+                class="btn btn-danger"
+                >Remove</a
+              >
+            </div></td>
+          </tr>
+          {% endfor %}
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+  
+  
+  
+			</div>
+		</div>
+		
+	</section>
+	<!-- end product Area -->
+
+
+
+{% endblock %}

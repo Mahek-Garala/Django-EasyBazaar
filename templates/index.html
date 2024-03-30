@@ -1,0 +1,137 @@
+{% extends 'base.html' %} {% block content %}
+
+	<!-- start banner Area -->
+	<section class="banner-area">
+		<div class="container">
+			<div class="row fullscreen align-items-center justify-content-start">
+				<div class="col-lg-12">
+					<div class="active-banner-slider owl-carousel">
+						<!-- single-slide -->
+						<div class="row single-slide align-items-center d-flex">
+							<div class="col-lg-5 col-md-6">
+								<div class="banner-content">
+									<h1>Sale Sale Sale</h1>
+									<p>sell sell sell</p>
+									
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<div class="banner-img">
+									<img class="img-fluid" src="/static/img/banner/1.jpeg" alt="">
+								</div>
+							</div>
+						</div>
+						<!-- single-slide -->
+						 <div class="row single-slide">
+							<div class="col-lg-5">
+								<div class="banner-content">
+									<h2 style="font-family: 'Poppins', sans-serif;">Welcome to EasyBazaar! </h2>
+									
+									
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<div class="banner-img">
+									<img class="img-fluid" src="/static/img/banner/turban-man.jpg" alt="">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+
+	<!-- start features Area -->
+	<section class="features-area section_gap">
+		<div class="container">
+			<div class="row features-inner">
+				<!-- single features -->
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-features">
+						<div class="f-icon">
+							<img src="/static/img/features/f-icon1.png" alt="">
+						</div>
+						<h6>Free Delivery</h6>
+						<p>Free Shipping on all order</p>
+					</div>
+				</div>
+				<!-- single features -->
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-features">
+						<div class="f-icon">
+							<img src="/static/img/features/f-icon2.png" alt="">
+						</div>
+						<h6>Return Policy</h6>
+						<p>Free Shipping on all order</p>
+					</div>
+				</div>
+				<!-- single features -->
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-features">
+						<div class="f-icon">
+							<img src="/static/img/features/f-icon3.png" alt="">
+						</div>
+						<h6>24/7 Support</h6>
+						<p>Free Shipping on all order</p>
+					</div>
+				</div>
+				<!-- single features -->
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-features">
+						<div class="f-icon">
+							<img src="/static/img/features/f-icon4.png" alt="">
+						</div>
+						<h6>Secure Payment</h6>
+						<p>Free Shipping on all order</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end features Area -->
+
+	
+
+	<!-- start Category Area -->
+	<section class="section_gap">
+		<!-- single category slide -->
+		<div class="single-product-slider">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-6 text-center">
+						<div class="section-title">
+							<h1>Categories</h1>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- single product -->
+					{% for c in categories %}
+					<div class="col-lg-3 col-md-6" style="cursor: pointer;">
+						<div class="single-product">
+							<a href="{% url 'show_product' c.id %}"><img class="img-fluid" src="{{c.photo.url}}" alt=""></a>
+							<div class="product-details">
+								<h6>{{c.name}}</h6>
+								<p>{{c.description}}</p>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					
+				
+					
+					
+				</div>
+			</div>
+		</div>
+		
+	</section>
+	<!-- end Category Area -->
+
+
+
+{% endblock %}
+
+	

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login / Signup</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/login.css" />
+  </head>
+  <body>
+    <div class="container" id="container">
+      <div class="form-container sign-up-container">
+        <form action="{% url 'signup' %}" method="POST">
+          {% csrf_token %}
+          <h1>Create Account</h1>
+
+          {% if error_message and page == "signup" %}
+          <div
+            style="
+              margin: 0px;
+              padding: 0px 3px;
+              height: fit-content;
+              width: 275px;
+              box-shadow: 1px 1px 1px 1px red;
+            "
+          >
+            <p
+              style="
+                margin: 9px 0px;
+                color: red;
+                font-weight: bold;
+                letter-spacing: 0px;
+              "
+            >
+              {{ error_message }}
+            </p>
+          </div>
+          {% endif %}
+          <select name="type">
+            <option value="Customer">Customer</option>
+            <option value="Seller">Seller</option>
+     
+
+          </select>
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            value="{{name}}"
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            value="{{email}}"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            value="{{password}}"
+            required
+          />
+          <input
+            type="tel"
+            placeholder="Phone No"
+            name="phone"
+            value="{{phone}}"
+            required
+          />
+        
+          
+          <button>Sign Up</button>
+        </form>
+      </div>
+
+      <div class="form-container sign-in-container">
+        <form action="{% url 'login' %}" method="POST">
+          {% csrf_token %}
+          <h1>Login as</h1>
+          {% if error_message and page == "login" %}
+          <div
+            style="
+              margin: 0px;
+              padding: 0px 3px;
+              height: fit-content;
+              width: 275px;
+              box-shadow: 1px 1px 1px 1px red;
+            "
+          >
+            <p
+              style="
+                margin: 9px 0px;
+                color: red;
+                font-weight: bold;
+                letter-spacing: 0px;
+              "
+            >
+              {{ error_message }}
+            </p>
+          </div>
+          {% endif %}
+          <select name="type">
+            <option value="Customer">Customer</option>
+            <option value="Seller">Seller</option>
+            <option value="Admin">Admin</option>
+          </select>
+          <input
+            type="text"
+            placeholder="Username"
+            name="name"
+            value="{{name}}"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            value="{{password}}"
+            required
+          />
+
+          {% comment %} <a href="#">Forgot your password?</a> {% endcomment %}
+          <button>Login</button>
+        </form>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>EasyBazaar</h1>
+            <p>
+              To keep connected with us please login with your personal info
+            </p>
+            <button class="ghost" id="signIn">Sign In</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>EasyBazaar</h1>
+            <p>Enter your personal details and start your journey with us</p>
+            <button class="ghost" id="signUp">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const signUpButton = document.getElementById('signUp');
+      const signInButton = document.getElementById('signIn');
+      const container = document.getElementById('container');
+
+      signUpButton.addEventListener('click', () => {
+      	container.classList.add("right-panel-active");
+      });
+
+      signInButton.addEventListener('click', () => {
+      	container.classList.remove("right-panel-active");
+      });
+
+
+      {% if page == "signup"%}
+        container.classList.add("right-panel-active");
+
+      {% endif %}
+
+      {% if page == "login" %}
+        container.classList.remove("right-panel-active");
+      {% endif %}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+		<!-- Start Banner Area -->
+		
+		<!-- End Banner Area -->
+	
+		<!--================Login Box Area =================-->
+		<section class="login_box_area section_gap">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="login_form_inner">
+							<h3>Place Order</h3>
+							<form class="row login_form" action="{% url 'payment' %}" method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+                               
+                                <div class="col-md-12 form-group">
+                                    <input type="text" id="name" name="name" placeholder="Name" required>
+                            	</div>
+                                <div class="col-md-12 form-group">
+                                    <input type="email" id="email" name="email" placeholder="email" required>	
+                            	</div>
+                                <div class="col-md-12 form-group">
+                                    <input type="text" id="address" name="address" placeholder="Full Address" required>
+                            	</div>
+                                <div class="col-md-12 form-group">
+                                    <input type="text" id="card_number" name="card_number" placeholder="Card Number" required>
+                            	</div>
+								<div class="col-md-12 form-group">
+									<button type="submit" value="submit" class="primary-btn">Place Order</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--================End Login Box Area =================-->
+{% endblock %}

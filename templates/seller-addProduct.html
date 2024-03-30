@@ -1,0 +1,56 @@
+{% extends 'seller-base.html' %}
+{% block content %}
+	
+		<!--================Login Box Area =================-->
+		<section class="login_box_area section_gap">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="login_form_inner">
+							<h3>Add Product</h3>
+							<form class="row login_form" action="{% url 'add_product' %}" method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+
+								<div class="col-md-12 form-group">
+                                    <input type="text" id="name" name="name" placeholder="Product Name" required>
+                            	</div>
+								<div class="col-md-12 form-group">
+                                    <input type="number" id="price" name="price" placeholder="Price" min="0" step="0.01" required>
+                            	</div>
+								<div class="col-md-12 form-group">
+                                    <input type="text" id="description" name="description" placeholder="Description" required>
+                            	</div>
+								<div class="col-md-12 form-group">
+                                    <input type="file" id="image" name="image" accept="image/*" required>
+                            	</div>
+								<div class="col-md-12 form-group">
+								<select id="category" name="category" required>
+									{% for c  in categories %}
+									<option value = "{{c.name}}">{{c.name}}</option>
+									{% endfor %}
+								</select>
+								</div>
+								<div class="col-md-12 form-group">
+                                    <input type="number" id="stock" name="stock" placeholder="Stock" min="0" required>
+                            	</div><br>
+								<div class="col-md-12 form-group">
+									<label for="availability">Availability:</label>
+									<select id="availability" name="availability" required>
+										<option value="available">Available</option>
+										<option value="out_of_stock">Out of Stock</option>
+									</select>
+								</div>
+								<div class="col-md-12 form-group">
+                                    <input type="text" id="subcategory" name="subcategory" placeholder="subcategory" >
+                            	</div>
+								<div class="col-md-12 form-group">
+									<button type="submit" value="submit" class="primary-btn">Add</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--================End Login Box Area =================-->
+{% endblock %}

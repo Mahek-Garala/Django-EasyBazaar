@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block content %}
+
+
+	<!-- start product Area -->
+	<section class="section_gap" style="margin-top:50px">
+		<!-- single product slide -->
+		<div class="single-product-slider">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-6 text-center">
+						<div class="section-title">
+							<h1>Your Orders</h1>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					
+					{% for p in products %}
+					<!-- single product -->
+					 <div class="col-lg-3 col-md-6">
+						<div class="single-product">
+							<img class="img-fluid" src="{{p.product.image.url}}" alt="">
+							<div class="product-details">
+								<h6>{{p.product.name}}</h6>
+								<div class="price">
+									<h6>{{p.product.price}}</h6>
+								</div><br>
+								<h6>Date : {{p.date}}</h6>
+							</div>
+						</div>
+					</div> 
+				{% endfor %}
+				</div>
+					
+					
+				</div>
+			</div>
+		</div>
+		
+	</section>
+	<!-- end product Area -->
+
+
+
+{% endblock %}

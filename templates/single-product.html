@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %}
+
+	<!--================Single Product Area =================-->
+	<div class="product_image_area" style="margin:70px 0px">
+		<div class="container">
+			<div class="row s_product_inner">
+				<div class="col-lg-6">
+					
+						<div class="single-prd-item">
+							<img class="img-fluid" src="{{product.image.url}}" alt="">
+						</div>
+				
+				</div>
+				<div class="col-lg-5 offset-lg-1">
+					<div class="s_product_text">
+						<h3>{{product.name}}</h3>
+						<h2>{{product.price}}</h2>
+						<ul class="list">
+							<li><a class="active" href="#"><span>Category</span> : {{category.name}}</a></li>
+							<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+						</ul>
+						<p>{{product.description}}</p>
+						<div class="card_area d-flex align-items-center">
+							<a class="primary-btn" href="#">Add to Cart</a>
+							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--================End Single Product Area =================-->
+
+	{% endblock %}
