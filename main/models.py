@@ -77,17 +77,6 @@ class Cart(models.Model):
 
 
 
-# class CartItem(models.Model):
-#     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-#     quantity = models.PositiveIntegerField()
-
-#     def total_price(self):
-#         return self.quantity * self.product.price
-    
-
-
-
 class Order(models.Model):
      
     order_id = models.AutoField(primary_key= True)
@@ -99,22 +88,5 @@ class Order(models.Model):
 
     def __str__(self):
          return f"-{self.order_id}{self.customer.name}-{self.product.name}"
-
-
-    
-# class ShippingAddress(models.Model):
-#     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
-#     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-#     address = models.CharField(max_length=200, null=False)
-#     city = models.CharField(max_length=200, null=False)
-#     state = models.CharField(max_length=200, null=False)
-#     zipcode = models.CharField(max_length=200, null=False)
-#     date_added = models.DateTimeField(auto_now_add=True)
-
-#     class Meta:
-#         verbose_name_plural = 'ShippingAddresses'
-
-#     def __str__(self):
-#         return self.customer.name
 
 
