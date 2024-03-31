@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 	"use strict";
 
@@ -54,7 +53,7 @@ $(document).ready(function(){
         autoplayTimeout: 5000,
         loop:true,
         nav:true,
-        navText:["<img src='img/banner/prev.png'>","<img src='img/banner/next.png'>"],
+        navText:["<img src='../img/banner/prev.png'>","<img src='../img/banner/next.png'>"],
         dots:false
     });
 

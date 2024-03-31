@@ -1,18 +1,55 @@
 {% extends 'base.html' %} {% block content %}
 
+<style> 
+
+	.filter-panel {
+	  float:left;
+	  margin-top:20px;
+	  margin-left:-76px;
+	  padding-right:50px;
+	  
+	}
+	
+	  
+	</style>
+
 	<!-- start product Area -->
 	<section class="section_gap" style="margin-top:50px">
+
+		
+    
+		
+		
 		<!-- single product slide -->
 		<div class="single-product-slider">
+			
 			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-lg-6 text-center">
-						<div class="section-title">
-							<h1>{{category.name}}</h1>
-						</div>
+				<div class="text-center">
+					<div class="section-title">
+						<h1>{{category.name}}</h1>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row ">
+					<div class="filter-panel col-lg-3">
+						<h2 class="text-lg font-semibold mb-2">Filters</h2>    
+						<h2 class="text-lg font-semibold mb-2">price</h2>
+						<ul>
+						  <li class="mb-2"><input type="checkbox" id="filter1" class="mr-2"><=800 &#8377 </li>
+						  <li class="mb-2"><input type="checkbox" id="filter2" class="mr-2"><=1500 &#8377 </li>
+						  <li class="mb-2"><input type="checkbox" id="filter3" class="mr-2"><=2500 &#8377 </li>
+						  <li class="mb-2"><input type="checkbox" id="filter4" class="mr-2"><=5000 &#8377 </li>
+						  <li class="mb-2"><input type="checkbox" id="filter5" class="mr-2"><=10000 &#8377 </li>
+						  <li class="mb-2"><input type="checkbox" id="filter6" class="mr-2"><=20000 &#8377 </li>
+						  <li class="mb-2"><input type="checkbox" id="filter7" class="mr-2"><=50000 &#8377 </li>
+						  <li class="mb-2"><input type="checkbox" id="filter8" class="mr-2"><=100000 &#8377 </li>
+						  <li class="mb-2"><input type="checkbox" id="filter9" class="mr-2"><=200000 &#8377 </li>
+				  
+				  
+						</ul>
+					</div>
+					
+			
+				
 					
 					
 					<!-- single product -->
@@ -49,8 +86,7 @@
 				
 				
 					{% endfor %}
-					
-				</div>
+		
 			</div>
 		</div>
 		

@@ -34,10 +34,10 @@
                                     <div class="product_count">
                                         <input type="text" name="qty" id="sst" maxlength="12" value="{{p.quantity}}" title="Quantity:" class="input-text qty">
                                         <a href="{% url 'increase_quantity' p.product.id %}">
-                                            <button onclick="var result = document.getElementById('sst'); var sst = parseInt(result.value); if( !isNaN( sst )) { result.value = sst + 1;  updateQuantity('+', p.product.id); } return false;" class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+                                            <button  class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
                                         </a>
                                         <a href="{% url 'decrease_quantity' p.product.id %}">
-                                            <button onclick="var result = document.getElementById('sst'); var sst = parseInt(result.value); if( !isNaN( sst ) && sst > 1 ) { result.value = sst - 1; updateQuantity('-', p.product.id); } return false;" class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                                            <button class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
                                         </a>
                                     </div>
                                 </td>
