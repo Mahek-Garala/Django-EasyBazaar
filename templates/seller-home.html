@@ -56,14 +56,14 @@
 					{% for p in products %}
 					 <div class="col-lg-3 col-md-6">
 						<div class="single-product">
-							<img class="img-fluid" src="{{p.image.url}}" alt="">
-							<div class="product-details">
+							<img class="img-fluid" src="{{p.image.url}}" alt="" style="height:300px;">
+							<div class="product-details" >
 								<h6>{{p.name}}</h6>
 								<div class="price">
 									<h6>{{p.price}}</h6>
 								</div><br>
 								<h6> Available Quantity = {{p.stock}} </h6>
-								<p>{{p.description}}</p>
+								<p style="min-height:110px;height:auto;overflow:auto;">{{p.description}}</p>
 								<h6>Category : {{p.category.name}}<h6>
 								<div class="prd-bottom">
 

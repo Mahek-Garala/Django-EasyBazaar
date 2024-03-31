@@ -88,8 +88,9 @@
 
 		<div class="search_input" id="search_input_box">
 			<div class="container">
-				<form class="d-flex justify-content-between" method="get">
-					<input type="text" class="form-control" id="search-input" placeholder="Search Here">
+				<form class="d-flex justify-content-between" method="post" action="{% url 'search_product' %}">
+					{% csrf_token %}
+					<input type="text" class="form-control" id="search-input" name="search_input" placeholder="Search Here">
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 
@@ -124,7 +125,7 @@
 	</footer>
 	<!-- End footer Area -->
 
-	<script>
+	<!-- <script>
 		const searchInput = document.getElementById('search-input');
 		const suggestionsDiv = document.getElementById('suggestions');
 
@@ -178,7 +179,7 @@
 			}
 		});
 
-	</script>
+	</script> -->
 	<script>
 		var filterCheckboxes = document.querySelectorAll('.filter-panel input[type="checkbox"]');
 		filterCheckboxes.forEach(function (checkbox) {

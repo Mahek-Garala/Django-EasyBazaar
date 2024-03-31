@@ -30,6 +30,8 @@ urlpatterns = [
     path('delete/<int:product_id>/', views.delete_product, name='delete_product'),
     path('addProduct/' , views.add_product , name = 'add_product'),
     path('seller_home/' , views.seller_home , name = 'seller_home'),
+    path('seller_sales/',views.seller_sales , name = 'seller_sales'),
+
 
 
 
@@ -48,6 +50,10 @@ urlpatterns = [
 
     path('profile/' , views.profile_view , name = 'profile_view') , 
     # path('seller-profile/' , views.profile_view , name = 'profile_view') , 
+
+
+
+    path('search_product/' , views.search_product , name = 'search_product')
 
 
 ]

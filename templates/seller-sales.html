@@ -1,0 +1,45 @@
+{% extends 'seller-base.html' %} {% block content %}
+
+<!-- start product Area -->
+<section class="section_gap" style="margin-top: 50px">
+  <!-- single product slide -->
+  <div class="single-product-slider">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <div class="section-title">
+            <h1>Sales</h1>
+          </div>
+        </div>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>User Name</th>
+            <th>User Email</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sample row -->
+          {% for p in in_order_products %}
+          <tr>
+            <td>{{p.product.name}}</td>
+            <td>{{p.quantity}}</td>
+            <td>{{p.customer.name}}</td>
+            <td>{{p.customer.email}}</td>
+            <td>{{p.date}}</td>
+          </tr>
+          {% endfor %}
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+      <!-- ***** Explore Area Starts ***** -->
+    </div>
+  </div>
+</section>
+
+{% endblock %}
