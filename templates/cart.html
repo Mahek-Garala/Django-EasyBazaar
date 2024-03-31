@@ -32,7 +32,7 @@
                                 </td>
                                 <td>
                                     <div class="product_count">
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="{{p.quantity}}" title="Quantity:" class="input-text qty">
+                                        <input type="text" name="qty" id="sst"  value="{{p.quantity}}" title="Quantity:" class="input-text qty">
                                         <a href="{% url 'increase_quantity' p.product.id %}">
                                             <button  class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
                                         </a>
@@ -43,7 +43,7 @@
                                 </td>
                                
                                 <td>
-                                    <a class="primary-btn" href="{% url 'remove_from_cart' p.product.id %}">remove</a>
+                                    <a class="primary genric-btn" style="padding:0px 20px;font-size:130%;" href="{% url 'remove_from_cart' p.product.id %}">remove</a>
                                 </td>
                             </tr>
                                 {% endfor %}

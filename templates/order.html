@@ -19,12 +19,14 @@
 					<!-- single product -->
 					 <div class="col-lg-3 col-md-6">
 						<div class="single-product">
-							<img class="img-fluid" src="{{p.product.image.url}}" alt="">
+							<img class="img-fluid" src="{{p.product.image.url}}" alt="" style="height:300px;">
 							<div class="product-details">
 								<h6>{{p.product.name}}</h6>
 								<div class="price">
 									<h6>{{p.product.price}}</h6>
-								</div><br>
+								</div>
+								<h5>Quantity : {{p.quantity}}</h5>
+								<br>
 								<h6>Date : {{p.date}}</h6>
 							</div>
 						</div>

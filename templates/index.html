@@ -95,9 +95,9 @@
 				<div class="row">
 					<!-- single product -->
 					{% for c in categories %}
-					<div class="col-lg-3 col-md-6" style="cursor: pointer;">
+					<div class="col-lg-3 col-md-6" >
 						<div class="single-product">
-							<a href="{% url 'show_product' c.id %}"><img class="img-fluid" src="{{c.photo.url}}" alt=""></a>
+							<a href="{% url 'show_product' c.id %}"><img class="img-fluid" src="{{c.photo.url}}" alt="" style="cursor: pointer;height:300px;"></a>
 							<div class="product-details">
 								<h6>{{c.name}}</h6>
 								<p>{{c.description}}</p>

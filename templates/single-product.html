@@ -13,6 +13,7 @@
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
+						<h2>Company : {{product.seller_id.company_name}}</h2>
 						<h3>{{product.name}}</h3>
 						<h2>{{product.price}}</h2>
 						<ul class="list">
@@ -24,8 +25,8 @@
 						<h2>{{product.seller_id.company_name}}</h2>
 						<p>{{product.description}}</p>
 						<div class="card_area d-flex align-items-center">
-							<a class="primary-btn" href="{% url 'cart' p.id %}">Add to Cart</a>
-							<a class="icon_btn" href="{% url 'wishlist' p.id %}"><i class="lnr lnr lnr-heart"></i></a>
+							<a class="primary-btn" href="{% url 'cart' product.id %}">Add to Cart</a>
+							<a class="icon_btn" href="{% url 'wishlist' product.id %}"><i class="lnr lnr lnr-heart"></i></a>
 						</div>
 					</div>
 				</div>

@@ -333,13 +333,17 @@ def buyProduct(request ):
     cust_id = request.session.get('cust_id')
     customer = get_object_or_404(Customer, id=cust_id)
     products = Cart.objects.filter(customer=customer) 
-
+    print(products)
     data = { 
         "error_message": "",
         "products" : products , 
         "total_price" : ""
     }
     
+    # if products is None :
+    #     data['error_message'] = f"Your Cart is empty"
+    #     return render(request, 'cart.html', data)
+
     for cart_item in products:
 
         if cart_item.product.available != True:

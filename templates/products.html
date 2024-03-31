@@ -54,9 +54,9 @@
 					
 					<!-- single product -->
 					{% for p in products %}
-					 <div class="col-lg-3 col-md-6">
+					 <div class="col-lg-3 col-md-6" >
 						<div class="single-product">
-							<a href="{% url 'show_single_product' p.id %}"><img class="img-fluid" src="{{p.image.url}}" alt=""> </a>
+							<a href="{% url 'show_single_product' p.id %}"><img class="img-fluid" src="{{p.image.url}}" alt=""  style="height:300px;"> </a>
 							<div class="product-details">
 								<h6>{{p.name}}</h6>
 								<div class="price">
@@ -64,18 +64,18 @@
 								</div>
 								<div class="button-group-area">
 									{% if p.in_cart %}
-									<a href="{% url 'cart_view' p.id %}" class="genric-btn primary circle">View Cart</a>
+									<a href="{% url 'cart_view' p.id %}" class="genric-btn primary " style="padding:0px 12px;font-size:120%;" >View Cart</a>
 									{% else %}  
-									<a href="{% url 'cart' p.id %}" class="genric-btn primary circle">Add to cart</a>
+									<a href="{% url 'cart' p.id %}" class="genric-btn primary " style="padding:0px 12px;font-size:120%;" >Add to cart</a>
 									
 									{% endif %}
 									
 									{% if p.in_wishlist %}
-									<a href="{% url 'wishlist_view' p.id %}" class="genric-btn primary circle"
+									<a href="{% url 'wishlist_view' p.id %}" class="genric-btn primary " style="padding:0px 12px;font-size:120%;" 
 									  >View Wishlist</a
 									>
 									{% else %}
-									<a href="{% url 'wishlist' p.id %}" class="genric-btn primary circle"
+									<a href="{% url 'wishlist' p.id %}" class="genric-btn primary " style="padding:0px 12px;font-size:120%;" 
 									  >Wishlist</a
 									>
 									{% endif %}
