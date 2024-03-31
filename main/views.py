@@ -5,6 +5,8 @@ from .models import Customer , Seller , Product , Category,Wishlist,Cart,Order
 from django.contrib.auth import logout 
 from django.contrib.auth.hashers import make_password , check_password
 from django.utils import timezone
+from django.contrib import messages
+
 # Create your views here.
 
 def home(request):
@@ -357,6 +359,10 @@ def buyProduct(request ):
         
     
     total_price = sum(item.product.price * item.quantity for item in products)
+    if total_price == 0 : 
+        # data['error_message'] = "Your Cart is empty"
+        messages.warning(request, 'Your cart is empty')
+        return render(request ,'cart.html' , data )
     data['total_price'] = total_price 
     return render(request, 'payment.html' , data)  
 
@@ -399,6 +405,15 @@ def order_view(request):
 
     }
     return render(request,'order.html', data)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -591,7 +606,7 @@ def profile_view(request):
         'user' : "" ,
         'type' : ""
     }
-    if cust : 
+    if cust and not sell : 
         customer = get_object_or_404(Customer, id= cust)
         data['user'] = customer
         data['type'] = "Customer"
