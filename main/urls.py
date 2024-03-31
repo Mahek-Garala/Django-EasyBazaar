@@ -47,6 +47,8 @@ urlpatterns = [
 
 
     path('profile/' , views.profile_view , name = 'profile_view') , 
+    # path('seller-profile/' , views.profile_view , name = 'profile_view') , 
+
 
 ]
 

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'seller-base.html' %}
 {% block content %}
     	<!-- Start Banner Area -->
 	
@@ -83,9 +83,8 @@
 	        						<p><strong>Email:</strong> {{ user.email }}</p>
                                     <p><strong>Type:</strong> {{ type }}</p>
                                     <div class="button-group-area mt-40">
-                                       
-                                        <a href="{% url 'home' %}" class="genric-btn primary ">Home</a>
-
+                                        <a href="{% url 'seller_home' %}" class="genric-btn primary ">Home</a>
+                                        
                                         <a href="{% url 'logoutpage' %}" class="genric-btn primary ">Logout</a>
 
                                     <div>

@@ -55,7 +55,7 @@
 					<!-- single product -->
 					{% for p in products %}
 					 <div class="col-lg-3 col-md-6" >
-						<div class="single-product">
+						<div class="single-product" price="{{ p.price }}">
 							<a href="{% url 'show_single_product' p.id %}"><img class="img-fluid" src="{{p.image.url}}" alt=""  style="height:300px;"> </a>
 							<div class="product-details">
 								<h6>{{p.name}}</h6>

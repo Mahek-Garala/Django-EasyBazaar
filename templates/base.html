@@ -2,11 +2,11 @@
 <html lang="zxx" class="no-js">
 
 <head>
-    {% load static %}
+	{% load static %}
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="/static/img/art-only-logo.png">
+	<link rel="shortcut icon" href="/static/img/small-logo.png">
 	<!-- Author Meta -->
 	<meta name="author" content="CodePixar">
 	<!-- Meta Description -->
@@ -41,9 +41,10 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src="/static/img/new logo.png" alt="" ></a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<a class="navbar-brand logo_h" href="index.html"><img src="/static/img/new logo.png" alt=""></a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -53,44 +54,47 @@
 						<ul class="nav navbar-nav menu_nav ml-auto">
 							<li class="nav-item active"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
 							<li class="nav-item submenu dropdown">
-								<a href="{% url 'order_view' %}" class="nav-link " >Order</a>
-								
+								<a href="{% url 'order_view' %}" class="nav-link ">Order</a>
+
 							</li>
-                            <li class="nav-item submenu dropdown">
+							<li class="nav-item submenu dropdown">
 								<a href="{% url 'wishlist_view' %}" class="nav-link">Wishlist</a>
-								
+
 							</li>
-                            {% if request.session.cust_id  %}
-								<li class="nav-item submenu dropdown">
-									<a href="{% url 'logoutpage' %}" class="nav-link">Logout</a>
-								</li>
+							{% if request.session.cust_id %}
+							<li class="nav-item submenu dropdown">
+								<a href="{% url 'logoutpage' %}" class="nav-link">Logout</a>
+							</li>
 							{% else %}
-								<li class="nav-item submenu dropdown">
-									<a href="{% url 'login' %}" class="nav-link">Login</a>
-								</li>
+							<li class="nav-item submenu dropdown">
+								<a href="{% url 'login' %}" class="nav-link">Login</a>
+							</li>
 							{% endif %}
 							<li class="nav-item"><a class="nav-link" href="{% url 'profile_view' %}">Profile</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="{% url 'cart_view' %}" class="cart"><span class="ti-shopping-cart"></span></a></li>
+							<li class="nav-item"><a href="{% url 'cart_view' %}" class="cart"><span
+										class="ti-shopping-cart"></span></a></li>
+
 							<li class="nav-item">
-								<form action="" method="get">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
-								
-								</form>
 							</li>
+
 						</ul>
 					</div>
 				</div>
 			</nav>
 		</div>
+
 		<div class="search_input" id="search_input_box">
 			<div class="container">
-				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+				<form class="d-flex justify-content-between" method="get">
+					<input type="text" class="form-control" id="search-input" placeholder="Search Here">
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+
 				</form>
+				<div id="suggestions"></div>
 			</div>
 		</div>
 	</header>
@@ -99,51 +103,106 @@
 
 
 
-    {% block content %}
-    {% endblock %}
+	{% block content %}
+	{% endblock %}
 
 
 
-    
+
 	<!-- start footer Area -->
 	<footer class="" style="background-color: rgba(0, 0, 0, 0.853); ">
 		<div class="container">
 
 			<div class=" d-flex justify-content-center align-items-center flex-wrap">
 				<p class="footer-text ">
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | EasyBaazar </a>
+					Copyright &copy;
+					<script>document.write(new Date().getFullYear());</script> All rights reserved | EasyBaazar </a>
 
-</p>
+				</p>
 			</div>
 		</div>
 	</footer>
 	<!-- End footer Area -->
 
+	<script>
+		const searchInput = document.getElementById('search-input');
+		const suggestionsDiv = document.getElementById('suggestions');
 
+		function showSuggestions() {
+			suggestionsDiv.style.display = 'block';
+		}
+		function hideSuggestions() {
+			suggestionsDiv.style.display = 'none';
+		}
+
+		searchInput.addEventListener('input', function () {
+			const searchTerm = searchInput.value;
+			console.log("Search term:", searchTerm); // Add this line to log the search term
+			fetch(`/product-suggestions/?search=${searchTerm}`)
+
+				.then(response => response.json())
+				.then(data => {
+					suggestionsDiv.innerHTML = '';
+					console.log("hello")
+					data.suggestions.forEach(suggestion => {
+						const suggestionItem = document.createElement('div');
+						suggestionItem.textContent = suggestion;
+						suggestionItem.classList.add('suggestion-item');
+						suggestionsDiv.appendChild(suggestionItem);
+						suggestionItem.addEventListener('click', function () {
+
+
+							const product_name = suggestion;
+							window.location.href = `/product_show/${product_name}/`;
+						});
+					});
+				});
+			showSuggestions();
+		});
+
+
+
+		//       document.body.addEventListener('click', function(event) {
+		//         const isClickInsideSearch = searchInput.contains(event.target);
+		//         const isClickInsideSuggestions = suggestionsDiv.contains(event.target);
+
+		//         if (!isClickInsideSearch && !isClickInsideSuggestions) {
+		//             hideSuggestions();
+		//         }
+		//         });
+
+
+		document.addEventListener('click', function (event) {
+			if (!searchInput.contains(event.target) && !suggestionsDiv.contains(event.target)) {
+				hideSuggestions();
+			}
+		});
+
+	</script>
 	<script>
 		var filterCheckboxes = document.querySelectorAll('.filter-panel input[type="checkbox"]');
-		filterCheckboxes.forEach(function(checkbox) {
+		filterCheckboxes.forEach(function (checkbox) {
 			checkbox.addEventListener('change', function () {
-				var products = document.querySelectorAll('.product-card');
+				var products = document.querySelectorAll('.single-product');
 				var priceFilters = {
 					'filter1': 800,
 					'filter2': 1500,
 					'filter3': 2500,
 					'filter4': 5000,
-					'filter5':10000,
-					'filter6':20000,
-					'filter7':50000,
-					'filter8':100000,
-					'filter9':200000
+					'filter5': 10000,
+					'filter6': 20000,
+					'filter7': 50000,
+					'filter8': 100000,
+					'filter9': 200000
 				};
-				
+
 				// Loop through each product card
 				products.forEach(function (product) {
 					var price = parseFloat(product.getAttribute('price'));
 					var showProduct = true;
-  
+
 					// Loop through each filter checkbox
-					filterCheckboxes.forEach(function(filterCheckbox) {
+					filterCheckboxes.forEach(function (filterCheckbox) {
 						if (filterCheckbox.checked) {
 							var filterId = filterCheckbox.id;
 							var filterPrice = priceFilters[filterId];
@@ -153,7 +212,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 							}
 						}
 					});
-  
+
 					// Show or hide the product based on filter selection
 					if (showProduct) {
 						product.style.display = 'block';
@@ -166,8 +225,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</script>
 
 	<script src="/static/js/vendor/jquery-2.2.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+		crossorigin="anonymous"></script>
 	<script src="/static/js/vendor/bootstrap.min.js"></script>
 	<script src="/static/js/jquery.ajaxchimp.min.js"></script>
 	<script src="/static/js/jquery.nice-select.min.js"></script>

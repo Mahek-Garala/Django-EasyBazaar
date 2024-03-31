@@ -425,7 +425,7 @@ def add_product(request):
         
 
         seller_id = request.session.get('id')
-
+        print(seller_id)
         seller = Seller.objects.get(id = seller_id)
         category = Category.objects.get(name = category_name)
         # Create new Product instance
@@ -475,6 +475,15 @@ def delete_product(request , product_id):
 
 
 
+
+
+
+
+
+
+
+
+
 def admin_home(request):
     products = Product.objects.all()
     data = {
@@ -490,7 +499,7 @@ def category_ana(request):
     data = {
         "category":category    
     }
-    return render(request , 'admin-addCategory.html' , data)
+    return render(request , 'admin-category.html' , data)
 
 
 def user_ana(request):
@@ -517,7 +526,8 @@ def remove_product(request , product_id):
     data = {
         "products":products    
     }
-    return render(request , 'admin-home.html' , data)
+    # return render(request , 'admin-home.html' , data)
+    return redirect('admin-home')
 
 def remove_category(request , category_id):
     category = get_object_or_404(Category, id= category_id)
@@ -527,7 +537,8 @@ def remove_category(request , category_id):
     data = {
         "category":category    
     }
-    return render(request , 'admin-addCategory.html' , data)
+    # return render(request , 'admin-category.html' , data)
+    return redirect('category_ana')
 
 def remove_user(request , user_id):
     user = get_object_or_404(Customer, id= user_id)
@@ -536,7 +547,8 @@ def remove_user(request , user_id):
     data = {
         "user":users   
     }
-    return render(request , 'admin-customer.html' , data)
+    # return render(request , 'admin-customer.html' , data)
+    return redirect('user_ana')
 
 def remove_seller(request , seller_id):
     seller = get_object_or_404(Seller, id= seller_id)
@@ -545,7 +557,8 @@ def remove_seller(request , seller_id):
     data = {
         "seller":sellers   
     }
-    return render(request , 'admin-seller.html' , data)
+    # return render(request , 'admin-seller.html' , data)
+    return redirect('seller_ana')
 
 def add_category(request):
     if request.method == 'POST':
@@ -560,9 +573,7 @@ def add_category(request):
             photo=image
         )
         new_category.save()
-
-        return render(request , 'admin-category.html')
-    
+        return redirect('category_ana')    
     return render(request, 'admin-addCategory.html')
 
 
@@ -584,13 +595,44 @@ def profile_view(request):
         customer = get_object_or_404(Customer, id= cust)
         data['user'] = customer
         data['type'] = "Customer"
+        return render(request , 'profile.html' , data)
 
     elif sell :
         seller = get_object_or_404(Seller, id= sell)
         data['user'] = seller
         data['type'] = "Seller"
+        return render(request , 'seller-profile.html' , data)
 
-    return render(request , 'profile.html' , data)
+
+
+
+
+
+from django.http import JsonResponse
+
+def product_suggestions(request):
+    print("hello")
+    if request.method == 'GET' and 'search' in request.GET:
+        search_term = request.GET.get('search')
+        print("Received search term:", search_term)
+        try:
+            products = Product.objects.filter(name__icontains=search_term)[:10]
+            suggestions = [product.name for product in products]
+            
+            return JsonResponse({'suggestions': suggestions})
+        except Exception as e:
+            print("Error:", e)
+            return JsonResponse({'error': 'An error occurred while fetching suggestions'}, status=500)
+    else:
+        return JsonResponse({'error': 'No search term provided or invalid request'}, status=400)
+
+def product_show(request, product_name):
+    print("product_show called")
+    product = get_object_or_404(Product, name=product_name)
+    data = {
+        'products': [product]  # Wrap the product in a list
+    }
+    return render(request, 'products.html', data)
 
 
 
