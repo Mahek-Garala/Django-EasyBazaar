@@ -1,5 +1,4 @@
 from django.shortcuts import get_object_or_404, render , redirect
-
 from main.forms import ProductForm
 from .models import Customer , Seller , Product , Category,Wishlist,Cart,Order
 from django.contrib.auth import logout 
@@ -16,7 +15,6 @@ def home(request):
         "categories":categories
     }
     return render(request,'index.html',data)
-
 
 def login(request):
     data = {
@@ -73,12 +71,10 @@ def login(request):
         
     return render(request,'login.html',data)
 
-
 def logoutpage(request):
     logout(request)
     request.session.flush()
     return redirect('login')
-
 
 def signup(request):
 
@@ -117,7 +113,6 @@ def signup(request):
     
         
         if type == "Customer" :
-
             customer = Customer(name=name, email=email, phone=phone, password=password)
             customer.password = make_password(customer.password)
             customer.save()
@@ -130,7 +125,6 @@ def signup(request):
         data['page'] = "login"
 
     return render(request,'login.html')
-
 
 def seller_auth(request):
     if request.method == 'POST':
@@ -154,7 +148,6 @@ def seller_auth(request):
      
     return render(request,'company.html')
 
-
 def search_product(request) : 
     data = {}
     if request.method == 'POST' :
@@ -167,7 +160,6 @@ def search_product(request) :
         else : 
             return render(request,'index.html')
     
-
 def profile_view(request):
     cust = request.session.get('cust_id')
     sell = request.session.get('id')
@@ -198,7 +190,11 @@ def show_product(request, category_id):
     customer_id = request.session.get('cust_id')
 
     product_wishlist_info = {}
-
+    data = {
+        "products": products,
+        "category" : category ,
+        "product_wishlist_info": product_wishlist_info
+    }
     if customer_id:
         wishlist_items = Wishlist.objects.filter(customer_id=customer_id)
 
@@ -207,13 +203,13 @@ def show_product(request, category_id):
         for product in products:
             is_in_wishlist = product.id in wishlist_product_ids
             product_wishlist_info[product.id] = is_in_wishlist
+    else:
+        messages.warning("Do Login First")
+        return render(request, 'products.html', data)
 
-    data = {
-        "products": products,
-        "category" : category ,
-        "product_wishlist_info": product_wishlist_info
-    }
+    
     return render(request, 'products.html', data)
+    
 
 
 def show_single_product(request, product_id):
