@@ -9,6 +9,7 @@ from django.contrib import messages
 # Create your views here.
 
 # ------------------------------- General ----------------------------------
+
 def home(request):
     categories = Category.objects.all()
     data = {
@@ -158,7 +159,7 @@ def search_product(request) :
             data['products'] = products
             return render(request,'products.html',data)
         else : 
-            return render(request,'index.html')
+            return redirect('home')
     
 def profile_view(request):
     cust = request.session.get('cust_id')
@@ -168,7 +169,7 @@ def profile_view(request):
         'user' : "" ,
         'type' : ""
     }
-    if cust and not sell : 
+    if cust : 
         customer = get_object_or_404(Customer, id= cust)
         data['user'] = customer
         data['type'] = "Customer"
@@ -204,14 +205,12 @@ def show_product(request, category_id):
             is_in_wishlist = product.id in wishlist_product_ids
             product_wishlist_info[product.id] = is_in_wishlist
     else:
-        messages.warning("Do Login First")
-        return render(request, 'products.html', data)
+        messages.warning(request , "Do Login First")
+        return redirect('home')
 
     
     return render(request, 'products.html', data)
     
-
-
 def show_single_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     category = product.category
@@ -224,7 +223,6 @@ def show_single_product(request, product_id):
         "product_wishlist_info": product_wishlist_info
     }
     return render(request, 'single-product.html', data)
-
 
 def cart(request , product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -245,10 +243,14 @@ def cart(request , product_id):
     }
     return render(request,'products.html',data )
 
-
 def cart_view(request):
     cust_id = request.session.get('cust_id')
     customer = Customer(id = cust_id)
+
+    if not customer:
+        messages.warning(request , "Do Login First")
+        return redirect('home')
+    
     products = Cart.objects.filter(customer = customer) 
     total_price = sum(item.product.price * item.quantity for item in products)
     data = { 
@@ -258,23 +260,19 @@ def cart_view(request):
    
     return render(request , 'cart.html' , data )
 
-
 def remove_from_cart(request , product_id):
 
     cust_id = request.session.get('cust_id')
     customer = Customer(id = cust_id)
     product = Product(id = product_id)
     products = Cart.objects.filter(customer = customer , product = product)
-    remaining_products = Cart.objects.filter(customer = customer)
-
 
     products.delete()
-    cust_id = request.session.get('cust_id')
-    customer = Customer(id = cust_id)
-    products = Cart.objects.filter(customer = customer) 
-    total_price = sum(item.product.price * item.quantity for item in products)
-    return render(request , 'cart.html' , {'products' : remaining_products , 'total_price' : total_price})
 
+    remaining_products = Cart.objects.filter(customer = customer)
+
+    total_price = sum(item.product.price * item.quantity for item in remaining_products)
+    return render(request , 'cart.html' , {'products' : remaining_products , 'total_price' : total_price})
 
 def increase_quantity(request, product_id):
     cust_id = request.session.get('cust_id')
@@ -282,10 +280,15 @@ def increase_quantity(request, product_id):
     customer = get_object_or_404(Customer, id = cust_id)
     cart_item = get_object_or_404(Cart, product=product, customer = customer)
     cart_item.quantity += 1
+
+    if cart_item.quantity > cart_item.product.stock:
+            product = get_object_or_404(Product, id=cart_item.product.id)
+            messages.warning(request,"Quantity is more than the availavle stock")
+            return redirect('cart_view')
+    
     cart_item.save()
     print("incr")
     return redirect('cart_view')
-
 
 def decrease_quantity(request, product_id):
     cust_id = request.session.get('cust_id')
@@ -296,7 +299,6 @@ def decrease_quantity(request, product_id):
         cart_item.quantity -= 1
         cart_item.save()
     return redirect('cart_view')
-
 
 def wishlist(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -316,15 +318,18 @@ def wishlist(request, product_id):
     }
     return render(request,'products.html',data)
 
-
 def wishlist_view(request):
 
     cust_id = request.session.get('cust_id')
     customer = Customer(id = cust_id)
+
+    if not customer :
+        messages.warning(request , "Do Login First")
+        return redirect('home')
+    
     products = Wishlist.objects.filter(customer = customer) 
    
     return render(request , 'wishlist.html' , {'products' : products})
-
 
 def remove_from_wishlist(request , product_id):
 
@@ -332,11 +337,10 @@ def remove_from_wishlist(request , product_id):
     customer = Customer(id = cust_id)
     product = Product(id = product_id)
     products = Wishlist.objects.filter(customer = customer , product = product)
+    products.delete()
     remaining_products = Wishlist.objects.filter(customer = customer)
 
-    products.delete()
     return render(request , 'wishlist.html' , {'products' : remaining_products})
-
 
 def buyProduct(request ):
     cust_id = request.session.get('cust_id')
@@ -354,10 +358,7 @@ def buyProduct(request ):
             product = get_object_or_404(Product, id=cart_item.product.id)
             data['error_message'] = f"{product.name} is not available"
             return render(request, 'cart.html', data)
-        elif cart_item.quantity > cart_item.product.stock:
-            product = get_object_or_404(Product, id=cart_item.product.id)
-            data['error_message'] = f"{product.name}'s quantity is more than available stock"
-            return render(request, 'cart.html', data)
+
         
     
     total_price = sum(item.product.price * item.quantity for item in products)
@@ -368,7 +369,6 @@ def buyProduct(request ):
     data['total_price'] = total_price 
 
     return render(request, 'payment.html' , data)  
-
 
 def payment(request):
 
@@ -394,10 +394,13 @@ def payment(request):
     }
     return render(request,'order.html', data)
 
-
 def order_view(request):
 
     cust_id = request.session.get('cust_id')
+    if not cust_id :
+        messages.warning(request , "Do Login First")
+        return redirect('home')
+    
     customer = get_object_or_404(Customer, id=cust_id)
 
     products = Order.objects.filter(customer=customer) 
@@ -419,7 +422,6 @@ def seller_home(request):
             "seller_id" : request.session.get('id') 
     }
     return render(request , 'seller-home.html' , data)
-
 
 def add_product(request):
     if request.method == 'POST':
@@ -459,7 +461,6 @@ def add_product(request):
     }
     return render(request, 'seller-addProduct.html' , data)
 
-
 def update_product(request, product_id):
 
     product = get_object_or_404(Product, id=product_id)
@@ -472,12 +473,10 @@ def update_product(request, product_id):
         form = ProductForm(instance=product)
     return render(request, 'seller-updateProduct.html', {'form': form, 'product': product})
 
-
 def delete_product(request , product_id):
    product = get_object_or_404(Product, id=product_id)
    product.delete()
    return redirect('seller_home') 
-
 
 def seller_sales(request):
     seller_id = request.session.get('id')
@@ -485,8 +484,6 @@ def seller_sales(request):
 
     products = Product.objects.filter(seller_id=seller)
 
-    # Now you have a queryset of products associated with the seller
-    # You can iterate over them to perform any further operations if needed
     in_order_products = []
     for product in products:
         in_order_product = Order.objects.filter(product=product)
@@ -565,6 +562,9 @@ def add_category(request):
         new_category.save()
         return redirect('category_ana')    
     return render(request, 'admin-addCategory.html')
+
+
+
 
 
 
